@@ -25,11 +25,18 @@ def caloriescounter(xls_path):
     return elfdict,  maxcalelf
 
 
-
+def maxthreelfs(elfdict):
+    maxcalories = 0
+    sortdict = sorted(elfdict.items(), key=lambda x: x[1], reverse=True)
+    for i in range(3):
+        maxcalories += sortdict[i][1]
+        print(sortdict[i])
+    return maxcalories
 
 
 
 toprint = caloriescounter("E:/PythonProjects/AdventOfCode/Day1Package/test.xlsx")
-print(toprint[1])
+sortdictionary = maxthreelfs(toprint[0])
+print(sortdictionary)
 
 
