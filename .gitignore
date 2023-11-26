@@ -160,6 +160,8 @@ cython_debug/
 #.idea/
 
 #ignore this type of files
-.csv
-.txt
-.xlsx
+*.csv
+*.txt
+*.xlsx
+!readme.txt
+!main.txt
