@@ -1,42 +1,32 @@
 
-import pandas as pd
 import re
-
-# import content of .txt file
-
-def import_txt(xls_path):
-    df = pd.read_excel(xls_path, 'Sheet1', header= None )
-    return df
-
-def caloriescounter(xls_path):
-    df = import_txt(xls_path)
-    elfdict = {}
-    elfnumb = 1
-    calories = 0
-    for i in range(len(df) - 1):
-        try:
-            value = int(df.at[i, 0])
-            calories += value
-        except ValueError:
-            elfdict[elfnumb] = calories
-            elfnumb += 1
-            calories = 0
-    maxcalelf = max(elfdict.items(), key=lambda x: x[1])
-    return elfdict,  maxcalelf
-
-
-def maxthreelfs(elfdict):
-    maxcalories = 0
-    sortdict = sorted(elfdict.items(), key=lambda x: x[1], reverse=True)
-    for i in range(3):
-        maxcalories += sortdict[i][1]
-        print(sortdict[i])
-    return maxcalories
+def import_txt(path_txt):
+    r_p_s_dict = {'X': 1, 'Y': 2, 'Z': 3}
+    my_win_cond ={'AY': 6, 'BZ': 6, 'CX': 6, 'AX': 3, 'BY': 3, 'CZ': 3 }
+    score = 0
+    with open(path_txt,'r') as txt_file:
+        for txt_line in txt_file:
+            txt_line = txt_line[0:3].replace(' ','').upper()
+            if txt_line[0:3].isalpha():
+                score += r_p_s_dict[txt_line[-1]]
+                if txt_line in list(my_win_cond):
+                    score += my_win_cond[txt_line]
+            else:
+                print("ont an alpha")
+    print(score)
 
 
 
-toprint = caloriescounter("E:/PythonProjects/AdventOfCode/Day1Package/test.xlsx")
-sortdictionary = maxthreelfs(toprint[0])
-print(sortdictionary)
+
+
+
+
+testfce = import_txt('E:/PythonProjects/AdventOfCode/Day2Package/Strategy_test.txt')
+
+
+
+
+
+
 
 
