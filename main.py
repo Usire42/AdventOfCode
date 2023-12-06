@@ -20,6 +20,7 @@ def main():
     path_to_file = path_convert("E:\PythonProjects\AdventOfCode\Day2Package\Strategy_input.txt")
     d2a_result = d2.Day2a(path_to_file).score_counter()
     print(d2a_result)
+    print("test of git")
 
 
 # Press the green button in the gutter to run the script.
