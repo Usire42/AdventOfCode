@@ -5,19 +5,36 @@ class Day2a:
 
     # counting scoce
     def score_counter(self):
-        r_p_s_dict = {'X' : 1, 'Y' : 2, 'Z' : 3}
-        my_win_cond = {'AY': 6, 'BZ': 6, 'CX': 6, 'AX': 3, 'BY': 3, 'CZ': 3}
         score = 0
-        # open txt file
-        with open(self.file_path,'r') as txt_file:
-            # remo
-            for txt_line in txt_file:
-                txt_line = txt_line[0:3].replace(' ', '').upper()
-                if txt_line.isalpha():
-                    score += r_p_s_dict[txt_line[-1]]
-                    if txt_line in list(my_win_cond):
-                        score += my_win_cond[txt_line]
-                else:
-                    pass
+        r_p_s_dict = {'A': 1, 'B': 2, 'C': 3, 'X': 1, 'Y': 2, 'Z': 3}
+        with open(self.file_path, 'r') as txt_file:
+            score = self.ansver_logic_update(txt_file, r_p_s_dict, score)
         return score
 
+    def ansver_logic(self, txt_file, r_p_s_dict, score):
+        for txt_line in txt_file:
+            txt_line = txt_line[0:3].replace(' ', '').upper()
+            if txt_line[0:3].isalpha():
+                score += r_p_s_dict[txt_line[-1]]
+                if r_p_s_dict[txt_line[0]] == r_p_s_dict[txt_line[-1]]:
+                    score += 3
+                elif ((r_p_s_dict[txt_line[0]] % 3) + 1) == r_p_s_dict[txt_line[-1]]:
+                    score += 6
+                else:
+                    pass
+            else:
+                pass
+        return score
+
+    def ansver_logic_update(self, txt_file, r_p_s_dict, score):
+        for txt_line in txt_file:
+            txt_line = txt_line[0:3].replace(' ', '').upper()
+            match txt_line[-1]:
+                case 'Z':
+                    score += 6 + ((r_p_s_dict[txt_line[0]] % 3) + 1)
+                case 'Y':
+                    score += 3 + r_p_s_dict[txt_line[0]]
+                case 'X':
+                    f = lambda x: x - 1 if (x > 1) else 3
+                    score += f(r_p_s_dict[txt_line[0]])
+        return score
